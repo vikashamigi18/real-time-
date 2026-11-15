@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NetVision | Network Monitor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <span>◈</span> NetVision
+    </div>
+
+    <p class="menu-title">MAIN MENU</p>
+
+    <a href="#dashboard" class="menu active">▦ Dashboard</a>
+    <a href="#traffic" class="menu">⌁ Traffic Analysis</a>
+    <a href="#packets" class="menu">▤ Packet Analysis</a>
+    <a href="#architecture" class="menu">◇ Network Diagram</a>
+    <a href="#flowchart" class="menu">⇄ Processing Flow</a>
+
+    <div class="sidebar-bottom">
+        <div class="status-dot"></div>
+        Local Monitoring System
+        <p>Version 1.0.0</p>
+    </div>
+</div>
+
+
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <h2>Network Dashboard</h2>
+            <p>Real-time network traffic monitoring and analysis</p>
+        </div>
+
+        <div class="top-right">
+            <span class="live-label">
+                <span class="status-dot"></span>
+                SYSTEM READY
+            </span>
+        </div>
+    </header>
+
+
+    <section id="dashboard">
+
+        <div class="welcome">
+            <div>
+                <h1>Network Overview</h1>
+                <p>Monitor and analyze your network traffic in real time.</p>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn" class="start-btn">
+                    ▶ Start Monitoring
+                </button>
+
+                <button id="stopBtn" class="stop-btn">
+                    ■ Stop Monitoring
+                </button>
+            </div>
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-heading">
+                    Total Packets
+                    <span>▤</span>
+                </div>
+                <h2 id="totalPackets">0</h2>
+                <p>Captured packets</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-heading">
+                    Total Traffic
+                    <span>⇅</span>
+                </div>
+                <h2 id="totalTraffic">0 B</h2>
+                <p>Captured data volume</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-heading">
+                    Protocols
+                    <span>◇</span>
+                </div>
+                <h2 id="protocolCount">0</h2>
+                <p>Detected categories</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-heading">
+                    Monitoring
+                    <span>◉</span>
+                </div>
+                <h2 id="monitorStatus">Offline</h2>
+                <p>Capture status</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="traffic" class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Traffic Analytics</h2>
+                <p>Visual representation of captured network packets</p>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+
+            <div class="panel chart-panel">
+                <h3>Protocol Distribution</h3>
+                <canvas id="protocolChart"></canvas>
+            </div>
+
+            <div class="panel chart-panel">
+                <h3>Packet Activity</h3>
+                <canvas id="activityChart"></canvas>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="packets" class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Packet Analysis</h2>
+                <p>Recently captured network packets</p>
+            </div>
+
+            <span class="table-tag">LIVE PACKET FEED</span>
+        </div>
+
+        <div class="panel table-panel">
+
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TIME</th>
+                            <th>SOURCE IP</th>
+                            <th>DESTINATION IP</th>
+                            <th>PROTOCOL</th>
+                            <th>SIZE</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="packetTable">
+                        <tr>
+                            <td colspan="5" class="empty">
+                                Waiting for network packets...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="architecture" class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Network Architecture</h2>
+                <p>System architecture and packet data flow</p>
+            </div>
+        </div>
+
+        <div class="panel diagram-panel">
+
+            <div class="architecture">
+
+                <div class="diagram-node">
+                    <span>🌐</span>
+                    <h3>Network</h3>
+                    <p>Incoming traffic</p>
+                </div>
+
+                <div class="arrow">↓</div>
+
+                <div class="diagram-node">
+                    <span>📡</span>
+                    <h3>Packet Capture</h3>
+                    <p>Scapy Engine</p>
+                </div>
+
+                <div class="arrow">↓</div>
+
+                <div class="diagram-node">
+                    <span>⚙️</span>
+                    <h3>Packet Analyzer</h3>
+                    <p>Protocol identification</p>
+                </div>
+
+                <div class="arrow">↓</div>
+
+                <div class="diagram-node">
+                    <span>🐍</span>
+                    <h3>Python Backend</h3>
+                    <p>Flask REST API</p>
+                </div>
+
+                <div class="arrow">↓</div>
+
+                <div class="diagram-node highlight-node">
+                    <span>📊</span>
+                    <h3>Web Dashboard</h3>
+                    <p>Charts and analytics</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="flowchart" class="content-section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Packet Processing Flowchart</h2>
+                <p>Working process of the monitoring system</p>
+            </div>
+        </div>
+
+        <div class="panel diagram-panel">
+
+            <div class="flowchart">
+
+                <div class="flow-node">Start Monitoring</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node">Capture Network Packet</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node">Extract Packet Metadata</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node">Identify Protocol</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node">Calculate Packet Size</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node">Update Statistics</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node">Display on Dashboard</div>
+                <div class="arrow">↓</div>
+
+                <div class="flow-node end-node">Continue Monitoring</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        <p>NetVision © 2026 | Real-Time Network Traffic Monitoring System</p>
+        <p>Developed using Python, Flask, Scapy and JavaScript</p>
+    </footer>
+
+</main>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>
